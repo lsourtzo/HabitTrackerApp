@@ -28,7 +28,7 @@ public class MainActivity  extends AppCompatActivity {
     }
 
     /**
-     * Helper method to insert hardcoded habits data into the database.
+     * Helper method to INSERT hardcoded habits data into the database.
      */
     private void Data_Insertion() {
         // Gets the database in write mode
@@ -53,13 +53,9 @@ public class MainActivity  extends AppCompatActivity {
     /**
      * Temporary helper method to return a Cursor object with data from the habit tracker database.
      */
-    private void Data_Reading() {
+    private Cursor Build_Cursor() {
         // Create and/or open a database to read from it
         SQLiteDatabase db = mDbHelper.getReadableDatabase();
-
-        // Define the string where return the results of query
-        // Build new String
-        StringBuilder displayView = new StringBuilder(400);
 
         // Define a projection that specifies which columns from the database
         // you will actually use after this query.
@@ -77,6 +73,20 @@ public class MainActivity  extends AppCompatActivity {
                 null,                  // Don't group the rows
                 null,                  // Don't filter by row groups
                 null);                   // The sort order
+
+        // Return the cursor which created from above query
+        return cursor;
+    }
+
+    /**
+     * Helper method to READ habits data from the database.
+     */
+    private void Data_Reading (){
+        // Define the string where return the results of query
+        // Build new String
+        StringBuilder displayView = new StringBuilder(400);
+
+        Cursor cursor = Build_Cursor();
 
         try {
             // Create a header in the Text View that looks like this:
